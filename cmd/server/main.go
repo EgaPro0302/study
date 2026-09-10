@@ -31,11 +31,11 @@ func main() {
 	svc := service.NewUserService(repo)
 	h := handler.NewUserHandler(svc)
 	r.HandleFunc("/users", h.Create).Methods(http.MethodPost)
+	r.HandleFunc("/users", h.Get).Methods(http.MethodGet)
+	r.HandleFunc("/users/{id}", h.GetById).Methods(http.MethodGet)
 
 	if err := http.ListenAndServe(":8089", r); err != nil {
 		fmt.Println(err)
 		return
-	} else {
-		fmt.Println("сервер запущен!")
 	}
 }
